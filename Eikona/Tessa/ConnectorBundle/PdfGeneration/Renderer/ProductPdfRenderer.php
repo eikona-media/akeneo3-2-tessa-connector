@@ -30,7 +30,8 @@ class ProductPdfRenderer extends \Akeneo\Pim\Enrichment\Bundle\PdfGeneration\Ren
         IdentifiableObjectRepositoryInterface $attributeRepository,
         string $template,
         string $uploadDirectory,
-        string $customFont = null,
+        ?string $customFont,
+        IdentifiableObjectRepositoryInterface $attributeOptionRepository,
         Tessa $tessa,
         AuthGuard $authGuard
     )
@@ -38,6 +39,17 @@ class ProductPdfRenderer extends \Akeneo\Pim\Enrichment\Bundle\PdfGeneration\Ren
         $this->tessa = $tessa;
         $this->authGuard = $authGuard;
 
-        parent::__construct($templating, $pdfBuilder, $dataManager, $cacheManager, $filterManager, $attributeRepository, $template, $uploadDirectory, $customFont);
+        parent::__construct(
+            $templating,
+            $pdfBuilder,
+            $dataManager,
+            $cacheManager,
+            $filterManager,
+            $attributeRepository,
+            $template,
+            $uploadDirectory,
+            $customFont,
+            $attributeOptionRepository
+        );
     }
 }
