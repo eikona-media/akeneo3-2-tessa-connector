@@ -8,12 +8,12 @@
 
 namespace Eikona\Tessa\ConnectorBundle\PdfGeneration\Renderer;
 
+use Akeneo\Asset\Component\Repository\AssetRepositoryInterface;
 use Akeneo\Channel\Component\Repository\ChannelRepositoryInterface;
 use Akeneo\Channel\Component\Repository\LocaleRepositoryInterface;
 use Akeneo\Pim\Enrichment\Bundle\PdfGeneration\Builder\PdfBuilderInterface;
 use Akeneo\Pim\WorkOrganization\Workflow\Bundle\Helper\FilterProductValuesHelper;
 use Akeneo\Tool\Component\StorageUtils\Repository\IdentifiableObjectRepositoryInterface;
-use Eikona\Tessa\ConnectorBundle\AttributeType\TessaType;
 use Eikona\Tessa\ConnectorBundle\Security\AuthGuard;
 use Eikona\Tessa\ConnectorBundle\Tessa;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -35,9 +35,11 @@ class ProductPdfRendererEE extends \Akeneo\Pim\Permission\Bundle\Pdf\ProductPdfR
         IdentifiableObjectRepositoryInterface $attributeRepository,
         ChannelRepositoryInterface $channelRepository,
         LocaleRepositoryInterface $localeRepository,
+        AssetRepositoryInterface $assetRepository,
         string $template,
         string $uploadDirectory,
-        ?string $customFont = null,
+        ?string $customFont,
+        IdentifiableObjectRepositoryInterface $attributeOptionRepository,
         Tessa $tessa,
         AuthGuard $authGuard
     )
@@ -45,6 +47,21 @@ class ProductPdfRendererEE extends \Akeneo\Pim\Permission\Bundle\Pdf\ProductPdfR
         $this->tessa = $tessa;
         $this->authGuard = $authGuard;
 
-        parent::__construct($templating, $pdfBuilder, $filterHelper, $dataManager, $cacheManager, $filterManager, $attributeRepository, $channelRepository, $localeRepository, $template, $uploadDirectory, $customFont);
+        parent::__construct(
+            $templating,
+            $pdfBuilder,
+            $filterHelper,
+            $dataManager,
+            $cacheManager,
+            $filterManager,
+            $attributeRepository,
+            $channelRepository,
+            $localeRepository,
+            $assetRepository,
+            $template,
+            $uploadDirectory,
+            $customFont,
+            $attributeOptionRepository
+        );
     }
 }
