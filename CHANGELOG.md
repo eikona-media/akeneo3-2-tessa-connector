@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.2
+## 1.0.2 (2020-07-15)
 * [bugfix] Fixed the product pdf generation
 
 ## 1.0.1 (2020-03-16)
