@@ -35,13 +35,13 @@ class EikonaTessaAttributeConstraintValidator extends ConstraintValidator
         if ($attribute instanceof AttributeInterface &&
             ($attribute->getType() === AttributeTypes::TESSA)) {
 
-            $cdnUrl = $attribute->getProperty(TessaType::ATTRIBUTE_CDN_URL);
+            $exportUrl = $attribute->getProperty(TessaType::ATTRIBUTE_EXPORT_URL);
 
-            if ($cdnUrl === null) {
+            if ($exportUrl === null) {
                 return;
             }
 
-            if (!preg_match_all('/({\w+})/', $cdnUrl, $matches)) {
+            if (!preg_match_all('/({\w+})/', $exportUrl, $matches)) {
                 return;
             }
 
@@ -52,7 +52,7 @@ class EikonaTessaAttributeConstraintValidator extends ConstraintValidator
 
             if (!empty($unknownPlaceholders)) {
                 $this->context->buildViolation($constraint->invalidPlaceholder)
-                    ->atPath(TessaType::ATTRIBUTE_CDN_URL)
+                    ->atPath(TessaType::ATTRIBUTE_EXPORT_URL)
                     ->setParameter('{{invalidPlaceholders}}', implode(', ', $unknownPlaceholders))
                     ->setParameter('{{allowedPlaceholders}}', implode(' & ', $allowedPlaceholders))
                     ->addViolation();
@@ -60,7 +60,7 @@ class EikonaTessaAttributeConstraintValidator extends ConstraintValidator
 
             if (!$attribute->isScopable() && $isScopePlaceholderUsed) {
                 $this->context->buildViolation($constraint->cannotUseScopePlaceholder)
-                    ->atPath(TessaType::ATTRIBUTE_CDN_URL)
+                    ->atPath(TessaType::ATTRIBUTE_EXPORT_URL)
                     ->addViolation();
             }
         }
